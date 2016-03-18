@@ -1,0 +1,10 @@
+general:
+  branches:
+    ignore:
+      - gh-pages # don't do anything if we deploy to gh-pages
+deployment:
+  staging:
+    branch: gh-pages
+    commands:
+      # deploy build directory to gh-pages
+      - ./scripts/deploy_staging.sh build
