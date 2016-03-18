@@ -10,4 +10,4 @@ deployment:
     branch: master
     commands:
       # deploy build directory to gh-pages
-      - ./scripts/deploy_staging.sh build
+      - ./scripts/deploy-ghpages.sh build
