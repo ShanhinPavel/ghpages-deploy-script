@@ -1,16 +1,14 @@
 general:
-  #switch to whitelisting as blacklisting doesn't seem to work!
   branches:
-    only:
-      - master
+    ignore:
+      - gh-pages
 
 test:
   override:
-    - exit 0 # pretend we did some tests?
+    - exit 0
 
 deployment:
   staging:
     branch: master
     commands:
-      # deploy build directory to gh-pages
       - ./scripts/deploy-ghpages.sh build
