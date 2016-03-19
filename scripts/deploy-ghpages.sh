@@ -6,35 +6,22 @@ set -e
 
 remote=$(git config remote.origin.url)
 
-pages_dir="$1"
+siteSource="$1"
 
-if [ ! -d "$pages_dir" ]
+if [ ! -d "$siteSource" ]
 then
-    echo "Usage: $0 DIRECTORY"
+    echo "Usage: $0 <site source dir>"
     exit 1
 fi
 
-cd "$pages_dir"
+# make a directory to put the gp-pages branch
+mkdir gh-pages-branch
+cd gh-pages-branch
+# now lets setup a new repo so we can update the gh-pages branch
+git init
+git remote add --fetch origin "$remote"
 
-# test to see if this directory is a git repo
-cdup=$(git rev-parse --show-cdup)
-if [ "$cdup" != '' ]
-then
-    git init
-    git remote add --fetch origin "$remote"
-    # if we already have the site ready to push, but we can't checkout the new
-    # branch as it will say we have changes. So stash them and pop the stash
-    # later
-    if [[ `git status --porcelain` ]]; then
-        # changes
-        git stash
-        stashed=true;
-      else
-        # no changes
-        stashed=false;
-    fi
-fi
-
+# switch into the the gh-pages branch
 if git rev-parse --verify origin/gh-pages > /dev/null 2>&1
 then
     git checkout gh-pages
@@ -42,9 +29,10 @@ else
     git checkout --orphan gh-pages
 fi
 
-if [ "$stashed" = true ] ; then
-  git stash pop
-fi
+# delete any old site as we are going to replace it
+git rm -rf .
+# copy over or recompile the new site
+cp -a "../${siteSource}/." .
 
 # stage any changes and new files
 git add -A
@@ -52,3 +40,8 @@ git add -A
 git commit -m "Deploy to GitHub pages"
 # and push, but send any output to /dev/null to hide anything sensitive
 git push --force --quiet origin gh-pages > /dev/null 2>&1
+
+# go back to where we started and remove the gh-pages git repo we made and used
+# for deployment
+cd ..
+rm -rf gh-pages-branch
