@@ -1,7 +1,8 @@
 general:
+  #switch to whitelisting as blacklisting doesn't seem to work!
   branches:
-    ignore:
-      - gh-pages # don't do anything if we deploy to gh-pages
+    only:
+      - master
 
 test:
   override:
