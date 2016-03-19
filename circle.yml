@@ -1,10 +1,12 @@
-test:
-  override:
-    - exit 0 # pretend we did some tests?
 general:
   branches:
     ignore:
       - gh-pages # don't do anything if we deploy to gh-pages
+
+test:
+  override:
+    - exit 0 # pretend we did some tests?
+
 deployment:
   staging:
     branch: master

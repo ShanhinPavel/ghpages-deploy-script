@@ -4,6 +4,7 @@
 # abort the script if there is a non-zero error
 set -e
 
+# show where we are on the machine
 pwd
 
 remote=$(git config remote.origin.url)
@@ -49,3 +50,5 @@ git push --force --quiet origin gh-pages > /dev/null 2>&1
 # for deployment
 cd ..
 rm -rf gh-pages-branch
+
+echo "Finished Deployment!"
