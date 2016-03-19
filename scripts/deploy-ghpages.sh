@@ -42,7 +42,7 @@ cp -a "../${siteSource}/." .
 # stage any changes and new files
 git add -A
 # now commit
-git commit -m "Deploy to GitHub pages"
+git commit --allow-empty -m "Deploy to GitHub pages"
 # and push, but send any output to /dev/null to hide anything sensitive
 git push --force --quiet origin gh-pages > /dev/null 2>&1
 
