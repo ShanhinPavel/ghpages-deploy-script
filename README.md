@@ -4,7 +4,7 @@ Test and demo repo for a script to deploy gh-pages on a successful CircleCI buil
 You can see the site that this repository will automatically deploy to at
 http://eldarlabs.github.io/ghpages-deploy-script/
 
-Any changes committed to master will regenerate the gh-pages branch, which in term updates the website.
+Any changes committed to master will regenerate the gh-pages branch and thereby the website.
 
 To get this to work I use a GitHub machine user as outlined in the circleci docs [here](https://circleci.com/docs/github-security-ssh-keys#machine-user-keys).
 
